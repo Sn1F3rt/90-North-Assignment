@@ -1,0 +1,42 @@
+[project]
+name = "90-north-assignment"
+version = "0.0.0"
+description = "Assignment for Software Development Engineering (Web) internship at 90 North."
+license = "MIT"
+authors = [
+    { name="Sayan Bhattacharyya", email="sayan@sn1f3rt.dev" },
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "channels>=4.2.0",
+    "channels-redis>=4.2.1",
+    "daphne>=4.1.2",
+    "django>=5.1.5",
+    "django-admin-inline-paginator>=0.4.0",
+    "django-cors-headers>=4.6.0",
+    "django-mysql>=4.15.0",
+    "djangorestframework>=3.15.2",
+    "mysql-connector-python>=9.1.0",
+    "dj-rest-auth[with-social]>=7.0.1",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pre-commit>=4.0.1",
+    "ruff>=0.9.1",
+]
+
+[tool.ruff]
+line-length = 85
+target-version = "py313"
+
+[tool.ruff.lint.isort]
+section-order = ["future", "typing", "standard-library", "third-party", "first-party", "local-folder", "config"]
+force-wrap-aliases = true
+combine-as-imports = true
+length-sort = true
+
+[tool.ruff.lint.isort.sections]
+"typing" = ["typing"]
+"config" = ["config"]

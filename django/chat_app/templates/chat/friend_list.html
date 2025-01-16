@@ -1,0 +1,44 @@
+{% extends './base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">Friend List</h1>
+
+        <div class="card p-3">
+            {%  if not user_list %}
+                <div class="alert alert-danger" role="alert">
+                    No friends added.
+                    <a href="{% url 'add_friend' %}" class="btn btn-warning">Add friend</a>
+                </div>
+            {% endif %}
+
+            {% for user in user_list %}
+                <div id="{{ user.user_name }}" class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'start_chat' user.room_name %}" class="text-danger">
+                        <h4>{{ user.user_name | title }}</h4>
+                    </a>
+                    <span class="badge badge-success">{{ user.un_read_msg_count }} unread</span>
+                    <span id="status" class="text-success font-weight-bold">
+                        {% if user.status %} Online {% endif %}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        PersonalSocket.onmessage = (e) => {
+            const data = JSON.parse(e.data);
+            if(data.msg_type === 'WENT_ONLINE'){
+                document.getElementById(data.user_name).querySelector('#status').textContent = 'Online'
+            } else if(data.msg_type === 'WENT_OFFLINE'){
+                document.getElementById(data.user_name).querySelector('#status').textContent = ''
+            } else if(data.msg_type === 'MESSAGE_COUNTER'){
+                let val = document.getElementById(data.user_id).textContent
+                document.getElementById(data.user_id).textContent = parseInt(val) + 1
+            }
+        }
+    </script>
+{% endblock %}

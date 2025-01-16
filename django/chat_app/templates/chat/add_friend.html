@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Friends</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Suggested Friends</h1>
+
+    {% if messages %}
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+                <p>{{ message }}<a href="{% url 'friend_list' %}" class="btn btn-warning btn-sm">Chats</a></p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if not all_user %}
+        <div class="alert alert-danger" role="alert">
+            No more users to add as a friend.
+            <a href="{% url 'home' %}" class="btn btn-warning">Home</a>
+        </div>
+    {% else %}
+        <div class="card p-3">
+        {% for user in all_user %}
+            <h4>{{ user.username | title }}
+                <a href="{% url 'add_friend' %}?id={{ user.id }}" class="btn btn-primary btn-sm ml-2">Add Friend</a>
+            </h4>
+            <hr>
+        {% endfor %}
+    {% endif %}
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Simply run the `index.html` file via Live Server in Visual Studio Code or any similar service. 
