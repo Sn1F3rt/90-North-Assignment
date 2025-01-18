@@ -8,8 +8,8 @@
                 <a href="{% url 'friend_list' %}" class="btn btn-danger">Chats</a>
                 <span id="overall_unread" class="badge badge-success">{{unread_msg}}</span>
             {% else %}
-                <button class="btn btn-primary" onclick="window.location.href='/auth/login'">Login</button>
-                <button class="btn btn-success" onclick="window.location.href='/auth/register'">Register</button>
+                <button class="btn btn-primary" onclick="window.location.href='/login'">Login</button>
+                <button class="btn btn-success" onclick="window.location.href='/register'">Register</button>
             {% endif %}
         </b>
         <br/>

@@ -24,7 +24,7 @@ SECRET_KEY = (
     "django-insecure-58+&a=kzdzv$3ds24t5546rgre4t544t5re%dr@#*=_g2svmlciayiu"
 )
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -49,9 +49,9 @@ INSTALLED_APPS += [
 
 # ================================ External Applications ==================================
 INSTALLED_APPS += [
+    "django.contrib.sites",
     "rest_framework",
     "rest_framework.authtoken",
-    "django.contrib.sites",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -119,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -142,20 +141,21 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # ================================= Channel Settings ===========================
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6380)],
-        },
-    },
-}
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
 SITE_ID = 1
-ACCOUNT_EMAIL_VERIFICATION = "optional"  # "mandatory" for email verification
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
+
+ACCOUNT_EMAIL_VERIFICATION = "none"  # "mandatory" for email verification
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_EMAIL_REQUIRED = False
 
-LOGIN_URL = "/auth/login"
-LOGOUT_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
