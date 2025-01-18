@@ -10,7 +10,6 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "channels>=4.2.0",
-    "channels-redis>=4.2.1",
     "daphne>=4.1.2",
     "django>=5.1.5",
     "django-admin-inline-paginator>=0.4.0",
